@@ -26,7 +26,7 @@ def main():
         is_active_member_encoded = label_encoder.fit_transform([is_active_member])[0]
 
         features = [
-            credit_score, geography_encoded, gender_encoded, age, tenure, balance, 
+            credit_score, gender_encoded, age, tenure, balance, 
             num_of_products, has_cr_card_encoded, is_active_member_encoded, estimated_salary
         ]
         result = make_prediction(features)

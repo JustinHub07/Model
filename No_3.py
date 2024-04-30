@@ -20,24 +20,29 @@ def main():
     has_cr_card = st.radio('Has Credit Card?', ['Yes', 'No']) 
     is_active_member = st.radio('Is Active Member?', ['Yes', 'No'])  
 
-
-    data = {'Age': int(age), 'Gender': gender, 'Credit Score':int(credit_score),
-            'Estimated Salary': int(estimated_salary),  'Tenure':int(tenure),
-            'Balance':int(balance), 'Number of Products':num_of_products, 
-            'Credit Card': has_cr_card, 'Active Member':(is_active_member)}
-
-    df=pd.DataFrame([list(data.values())], columns=['Age', 'Gender', 'Credit Score', 'Estimated Salary',
-                                                    'Tenure', 'Balance', 'Number of Products', 'Credit Card', 'Active Member',
-                                                    ])
-    df = df.replace(gender_encode)
-    label_encoder = LabelEncoder()
-    df['Credit Card'] = label_encoder.fit_transform(df['Credit Card'])
-    df['Active Member'] = label_encoder.fit_transform(df['Active Member'])
-
     if st.button('Make Prediction'):
-        features=df
+        data = {'Age': int(age), 'Gender': gender, 'Credit Score':int(credit_score),
+                'Estimated Salary': int(estimated_salary),  'Tenure':int(tenure),
+                'Balance':int(balance), 'Number of Products':num_of_products, 
+                'Credit Card': has_cr_card, 'Active Member':(is_active_member)}
+
+        df=pd.DataFrame([list(data.values())], columns=['Age', 'Gender', 'Credit Score', 'Estimated Salary',
+                                                        'Tenure', 'Balance', 'Number of Products', 'Credit Card', 'Active Member',
+                                                        ])
+        df = df.replace(gender_encode)
+        label_encoder = LabelEncoder()
+        df['Credit Card'] = label_encoder.fit_transform(df['Credit Card'])
+        df['Active Member'] = label_encoder.fit_transform(df['Active Member'])
+
+        features = df
         result = make_prediction(features)
-        st.success(f'The prediction is: {result}')
+
+        if result == 1:
+            prediction_text = "Customer is predicted to churn."
+        else:
+            prediction_text = "Customer is predicted to stay."
+
+        st.success(prediction_text)
 
 def make_prediction(features):
     input_array = np.array(features).reshape(1, -1)

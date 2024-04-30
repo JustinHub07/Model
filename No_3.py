@@ -31,8 +31,8 @@ def main():
                                                     ])
     df = df.replace(gender_encode)
     label_encoder = LabelEncoder()
-    df[has_cr_card] = label_encoder.fit_transform(df[has_cr_card])[0]
-    df[is_active_member] = label_encoder.fit_transform(df[is_active_member])[0]
+    df['Credit Card'] = label_encoder.fit_transform(df['Credit Card'])
+    df['Active Member'] = label_encoder.fit_transform(df['Active Member'])
 
     if st.button('Make Prediction'):
         features=df

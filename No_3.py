@@ -13,6 +13,7 @@ def main():
     st.title('Churn XGBoost')
 
     age = st.number_input('Age', 17, 100)
+    geography = st.radio('Geography', ['Spain', 'France', 'Germany'])  
     gender = st.radio('Gender', ["Male","Female"])
     credit_score = st.number_input('Credit Score', 0, 850)
     estimated_salary = st.number_input('Estimated Salary', 0)

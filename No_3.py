@@ -5,7 +5,7 @@ import xgboost as xgb
 from xgboost import XGBClassifier
 from sklearn.preprocessing import LabelEncoder  # For categorical variable encoding
 # Load the machine learning model
-model = joblib.load('XGBoost.pkl')
+model = joblib.load('xgb_classifier.pkl')
 
 def main():
     st.title('Churn Model Deployment')

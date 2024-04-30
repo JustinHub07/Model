@@ -6,7 +6,6 @@ from sklearn.preprocessing import LabelEncoder
 
 model = joblib.load('xgb_classifier.pkl')
 gender_encode = joblib.load('gender_encode.pkl')
-featue_encoding_subs = joblib.load('feature_encoding.pkl')
 
 def main():
     st.title('Churn XGBoost')
@@ -31,9 +30,9 @@ def main():
                                                 'Number of Products', 'Credit Card','Active Member',
                                                 'Credit Score'])
     df = df.replace(gender_encode)
-    df = label_encoder.fit_transform([gender])[0]
-    df = label_encoder.fit_transform([has_cr_card])[0]
-    df = label_encoder.fit_transform([is_active_member])[0]
+    label_encoder = LabelEncoder()
+    df[has_cr_card] = label_encoder.fit_transform(df[has_cr_card])[0]
+    df[is_active_member] = label_encoder.fit_transform(df[is_active_member])[0]
 
     if st.button('Make Prediction'):
         features=df

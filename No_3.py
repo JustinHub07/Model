@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder  
 
-model = joblib.load('xgb_classifier.pkl')
+model = joblib.load('xgb_model.pkl')
 gender_encode = joblib.load('gender_encode.pkl')
 
 def main():

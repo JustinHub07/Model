@@ -40,6 +40,7 @@ def main():
         
         features = [
             df['Age'].values[0],
+            df['Geography'].values[0],
             df['Gender'].values[0],
             df['Credit Score'].values[0],
             df['Estimated Salary'].values[0],

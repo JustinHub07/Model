@@ -11,7 +11,8 @@ gender_encode = joblib.load('gender_encode.pkl')
 
 def main():
     st.title('Churn XGBoost')
-
+    
+    id = st.number_input('ID', 0, 41257)
     age = st.number_input('Age', 17, 100)
     geography = st.radio('Geography', ['Spain', 'France', 'Germany'])  
     gender = st.radio('Gender', ["Male","Female"])
@@ -24,12 +25,12 @@ def main():
     is_active_member = st.radio('Is Active Member?', ['Yes', 'No'])  
 
     if st.button('Make Prediction'):
-        data = {'Age': int(age), 'Geography': geography, 'Gender': gender, 'Credit Score':int(credit_score),
+        data = {'ID': int(id), 'Age': int(age), 'Geography': geography, 'Gender': gender, 'Credit Score':int(credit_score),
                 'Estimated Salary': int(estimated_salary),  'Tenure':int(tenure),
                 'Balance':int(balance), 'Number of Products':num_of_products, 
                 'Credit Card': has_cr_card, 'Active Member':(is_active_member)}
 
-        df=pd.DataFrame([list(data.values())], columns=['Age', 'Geography', 'Gender', 'Credit Score', 'Estimated Salary',
+        df=pd.DataFrame([list(data.values())], columns=['ID', 'Age', 'Geography', 'Gender', 'Credit Score', 'Estimated Salary',
                                                         'Tenure', 'Balance', 'Number of Products', 'Credit Card', 'Active Member',
                                                         ])
         
@@ -40,6 +41,7 @@ def main():
         df['Active Member'] = label_encoder.fit_transform(df['Active Member'])
         
         features = [
+            df['ID'].values[0],
             df['Age'].values[0],
             df['Geography'].values[0],
             df['Gender'].values[0],

@@ -13,6 +13,7 @@ def main():
     st.title('Churn XGBoost')
 
     age = st.number_input('Age', 17, 100)
+    geography = st.radio('Geography', ['Spain', 'France', 'Germany'])  
     gender = st.radio('Gender', ["Male","Female"])
     credit_score = st.number_input('Credit Score', 0, 850)
     estimated_salary = st.number_input('Estimated Salary', 0)
@@ -23,17 +24,18 @@ def main():
     is_active_member = st.radio('Is Active Member?', ['Yes', 'No'])  
 
     if st.button('Make Prediction'):
-        data = {'Age': int(age), 'Gender': gender, 'Credit Score':int(credit_score),
+        data = {'Age': int(age), 'Geography': geography, 'Gender': gender, 'Credit Score':int(credit_score),
                 'Estimated Salary': int(estimated_salary),  'Tenure':int(tenure),
                 'Balance':int(balance), 'Number of Products':num_of_products, 
                 'Credit Card': has_cr_card, 'Active Member':(is_active_member)}
 
-        df=pd.DataFrame([list(data.values())], columns=['Age', 'Gender', 'Credit Score', 'Estimated Salary',
+        df=pd.DataFrame([list(data.values())], columns=['Age', 'Geography', 'Gender', 'Credit Score', 'Estimated Salary',
                                                         'Tenure', 'Balance', 'Number of Products', 'Credit Card', 'Active Member',
                                                         ])
         
         df = df.replace(gender_encode)
         label_encoder = LabelEncoder()
+        df['Geography'] = label_encoder.fit_transform(df['Geography'])
         df['Credit Card'] = label_encoder.fit_transform(df['Credit Card'])
         df['Active Member'] = label_encoder.fit_transform(df['Active Member'])
         

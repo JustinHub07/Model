@@ -6,7 +6,7 @@ import pandas as pd
 from xgboost import XGBClassifier
 from sklearn.preprocessing import LabelEncoder  
 
-model = joblib.load('xgb_model.pkl')
+model = joblib.load('xgb_classifier.pkl')
 gender_encode = joblib.load('gender_encode.pkl')
 
 def main():

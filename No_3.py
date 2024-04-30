@@ -20,15 +20,14 @@ def main():
     has_cr_card = st.radio('Has Credit Card?', ['Yes', 'No']) 
     is_active_member = st.radio('Is Active Member?', ['Yes', 'No'])  
 
+    data = {'Age': int(age), 'Gender': gender, 'Credit Score':int(credit_score),
+            'Estimated Salary': int(estimated_salary),  'Tenure':int(tenure),
+            'Balance':int(balance), 'Number of Products':num_of_products, 
+            'Credit Card': has_cr_card, 'Active Member':(is_active_member)}
 
-    data = {'Age': int(age), 'Gender': gender, 'Tenure':int(tenure),'Balance':int(balance),
-            'Estimated Salary': int(estimated_salary), 'Credit Score':int(credit_score),
-            'Number of Products':num_of_products, 'Credit Card': has_cr_card,
-            'Active Member':(is_active_member)}
-
-    df=pd.DataFrame([list(data.values())], columns=['Age','Gender', 'Tenure', 'Balance','Estimated Salary',
-                                                'Number of Products', 'Credit Card','Active Member',
-                                                'Credit Score'])
+    df=pd.DataFrame([list(data.values())], columns=['Age', 'Gender', 'Credit Score', 'Estimated Salary',
+                                                    'Tenure', 'Balance', 'Number of Products', 'Credit Card', 'Active Member',
+                                                    ])
     df = df.replace(gender_encode)
     label_encoder = LabelEncoder()
     df[has_cr_card] = label_encoder.fit_transform(df[has_cr_card])[0]

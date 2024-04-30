@@ -5,7 +5,9 @@ import xgboost as xgb
 import pandas as pd
 from xgboost import XGBClassifier
 from sklearn.preprocessing import LabelEncoder  
+
 model = joblib.load('xgb_model.pkl')
+gender_encode = joblib.load('gender_encode.pkl')
 
 def main():
     st.title('Churn XGBoost')
@@ -29,14 +31,12 @@ def main():
         df=pd.DataFrame([list(data.values())], columns=['Age', 'Gender', 'Credit Score', 'Estimated Salary',
                                                         'Tenure', 'Balance', 'Number of Products', 'Credit Card', 'Active Member',
                                                         ])
+        
         df = df.replace(gender_encode)
         label_encoder = LabelEncoder()
         df['Credit Card'] = label_encoder.fit_transform(df['Credit Card'])
         df['Active Member'] = label_encoder.fit_transform(df['Active Member'])
-
-        # Memastikan semua fitur yang diperlukan dimasukkan
-        # sesuai dengan urutan yang diharapkan oleh model
-        # Menggunakan data prediksi yang sesuai
+        
         features = [
             df['Age'].values[0],
             df['Gender'].values[0],
